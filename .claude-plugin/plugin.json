@@ -1,0 +1,22 @@
+{
+  "name": "emoji-speak",
+  "description": "Stylized communication mode for Claude Code — replies in 100% emoji. Fun-first.",
+  "version": "0.1.0",
+  "author": {
+    "name": "emoji-speak contributors"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/emoji-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading emoji-speak mode..."
+          }
+        ]
+      }
+    ]
+  }
+}

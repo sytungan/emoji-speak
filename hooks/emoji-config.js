@@ -49,4 +49,26 @@ function safeWriteFlag(flagPath, mode) {
   fs.writeFileSync(flagPath, mode, { flag: 'w' });
 }
 
-module.exports = { getConfigDir, getConfigPath, getDefaultMode, safeWriteFlag, VALID_MODES };
+const FLAG_MAX_BYTES = 16;
+
+function readFlag(flagPath) {
+  // Symlink-safe + size-capped + whitelist-validated.
+  // The return value can be fed back into Claude's context as additionalContext,
+  // so all three checks must pass before returning anything other than null.
+  try {
+    const stat = fs.lstatSync(flagPath);
+    if (stat.isSymbolicLink()) return null;
+    if (stat.size > FLAG_MAX_BYTES) return null;
+  } catch (_e) {
+    return null;
+  }
+  let value;
+  try {
+    value = fs.readFileSync(flagPath, 'utf8').trim().toLowerCase();
+  } catch (_e) {
+    return null;
+  }
+  return VALID_MODES.includes(value) ? value : null;
+}
+
+module.exports = { getConfigDir, getConfigPath, getDefaultMode, safeWriteFlag, readFlag, VALID_MODES };

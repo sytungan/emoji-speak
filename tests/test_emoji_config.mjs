@@ -72,3 +72,60 @@ test('safeWriteFlag refuses to follow a symlink', () => {
   assert.throws(() => safeWriteFlag(flag, 'on'));
   assert.equal(fs.readFileSync(victim, 'utf8'), 'untouched');
 });
+
+test('readFlag returns "on" for a normal flag file containing "on"', () => {
+  const dir = tmpDir();
+  const flag = path.join(dir, '.emoji-speak-active');
+  fs.writeFileSync(flag, 'on');
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), 'on');
+});
+
+test('readFlag returns "off" for a flag file containing "off"', () => {
+  const dir = tmpDir();
+  const flag = path.join(dir, '.emoji-speak-active');
+  fs.writeFileSync(flag, 'off');
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), 'off');
+});
+
+test('readFlag returns null when the flag file is missing', () => {
+  const dir = tmpDir();
+  const flag = path.join(dir, '.emoji-speak-active');
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), null);
+});
+
+test('readFlag returns null when the flag is a symlink', () => {
+  const dir = tmpDir();
+  const victim = path.join(dir, 'victim.txt');
+  fs.writeFileSync(victim, 'on');
+  const flag = path.join(dir, '.emoji-speak-active');
+  fs.symlinkSync(victim, flag);
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), null);
+});
+
+test('readFlag returns null when the flag is oversized', () => {
+  const dir = tmpDir();
+  const flag = path.join(dir, '.emoji-speak-active');
+  fs.writeFileSync(flag, 'on'.repeat(512));
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), null);
+});
+
+test('readFlag returns null when the contents are not a valid mode', () => {
+  const dir = tmpDir();
+  const flag = path.join(dir, '.emoji-speak-active');
+  fs.writeFileSync(flag, 'bogus');
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), null);
+});
+
+test('readFlag tolerates trailing whitespace/newline', () => {
+  const dir = tmpDir();
+  const flag = path.join(dir, '.emoji-speak-active');
+  fs.writeFileSync(flag, 'on\n');
+  const { readFlag } = freshRequire();
+  assert.equal(readFlag(flag), 'on');
+});

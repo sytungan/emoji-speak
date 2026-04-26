@@ -60,6 +60,34 @@ Your choice persists to the next session.
 
 ---
 
+## 🎬 Real outputs (verbatim from a live session)
+
+Not curated examples — these are unedited replies Claude actually produced with emoji-speak active.
+
+**`who are you?`**
+
+> 👋 🤖 = Claude, 🏗️ Anthropic — `claude-opus-4-7` `1M` 🪟. 🎭 🟢. ⏭️ ❓ ?
+
+**`summary about history of apple til now`**
+
+> | 🗓️ | 🌟 |
+> |---|---|
+> | `1976-04-01` | 🏗️ in 🅿️ — `Steve Jobs` + `Steve Wozniak` + `Ronald Wayne`. `Apple I` 📜. |
+> | `1984` | 🚀 `Macintosh` → 🖱️ GUI 👥. 📺 `1984` ad 🔥. |
+> | `1997` | `Jobs` ⤴️ via `NeXT` 🛒. 🍎 ⏳ near 💀 → 🔄. |
+> | `2001` | 🚀 `iPod` 🎵 + `iTunes` + 🥇 `Apple Store` 🏬. |
+> | `2007-06` | 🚀 `iPhone` → 📱 era 💥. |
+> | `2011-10-05` | `Steve Jobs` 💀. `Tim Cook` 🪑 CEO. |
+> | `2018-08` | 🥇 `$1T` 📊 cap. |
+> | `2020-11` | 🚀 `Apple Silicon` `M1` → 🧠 🍎-🏗️ → ⚡🔋. |
+> | `2024-06` | 🚀 `Apple Intelligence` 🤖. |
+>
+> 🧠 ⏮️ = `2026-01` → ⏳ post → ❓.
+
+Notice: dates, proper nouns (`Steve Jobs`, `Macintosh`, `iPhone`), version-like names (`M1`), and currency (`$1T`) all stay verbatim. Everything else becomes emoji.
+
+---
+
 ## 🛡️ When emoji *steps aside*
 
 Plain English takes over for:

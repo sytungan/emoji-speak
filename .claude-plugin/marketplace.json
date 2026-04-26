@@ -1,0 +1,19 @@
+{
+  "name": "emoji-speak",
+  "owner": {
+    "name": "emoji-speak contributors"
+  },
+  "metadata": {
+    "description": "Stylized communication mode for Claude Code — replies in 100% emoji.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "emoji-speak",
+      "source": "./",
+      "description": "Replies in 100% emoji while preserving code, paths, URLs, and errors verbatim. Fun-first stylized mode.",
+      "category": "communication",
+      "tags": ["emoji", "style", "fun", "communication"]
+    }
+  ]
+}

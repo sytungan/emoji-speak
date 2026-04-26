@@ -1,0 +1,10 @@
+Why does my React component re-render every time I scroll?
+What's the difference between `let` and `const` in JavaScript?
+How do I undo the last commit but keep the changes staged?
+Explain database connection pooling in two or three sentences.
+What does the `git rebase --onto` flag do?
+Why is my Docker build slow and how do I speed it up?
+List three differences between TCP and UDP.
+How do I delete a remote git branch?
+Why does `0.1 + 0.2 !== 0.3` in JavaScript?
+What is dependency injection and when should I use it?

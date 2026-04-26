@@ -1,5 +1,9 @@
 # 🎭 emoji-speak
 
+[![test](https://github.com/sytungan/emoji-speak/actions/workflows/test.yml/badge.svg)](https://github.com/sytungan/emoji-speak/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7c3aed)
+
 > Talk to Claude in **100% emoji**. Fun first — and **saves output tokens** for verbose questions (38–63% in our examples).
 
 A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill / plugin that makes Claude reply in emoji-only prose while keeping all code, paths, URLs, and errors verbatim. Reduces output tokens for long-form questions, ships with a benchmark harness, and is the playful sibling of [caveman](https://github.com/JuliusBrussee/caveman) — same "stop wasting tokens" idea, different vibe.

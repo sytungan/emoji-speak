@@ -1,6 +1,8 @@
 # 🎭 emoji-speak
 
-> Talk to Claude in **100% emoji**. Fun first.
+> Talk to Claude in **100% emoji**. Fun first — and **saves output tokens** for verbose questions (38–63% in our examples).
+
+A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill / plugin that makes Claude reply in emoji-only prose while keeping all code, paths, URLs, and errors verbatim. Reduces output tokens for long-form questions, ships with a benchmark harness, and is the playful sibling of [caveman](https://github.com/JuliusBrussee/caveman) — same "stop wasting tokens" idea, different vibe.
 
 ```
 > Why does my useEffect run twice?
@@ -207,6 +209,28 @@ node --test tests/*.mjs    # run all 25 tests
 ```
 
 (Node 24+ needs the explicit glob — `tests/` alone doesn't recurse.)
+
+---
+
+## ❓ FAQ
+
+**How do I save tokens with Claude Code?**
+Install emoji-speak. For verbose questions (explanations, comparisons, debugging), it cuts 30–60% of output tokens by replacing prose with emoji. Code, paths, and errors are preserved exactly.
+
+**Does emoji-speak work with the Claude API?**
+Currently it's packaged as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin. The SKILL itself (`skills/emoji-speak/SKILL.md`) is a system-prompt fragment — you can copy its body into any Anthropic SDK call's `system` field and get the same behavior.
+
+**Will it break my code output?**
+No. Anything inside `` `backticks` ``, fenced code blocks, file paths, URLs, error messages, version numbers, and proper nouns is preserved verbatim. Only English prose becomes emoji.
+
+**Is it just a gimmick?**
+The fun is the point. The token savings are a bonus — measured per-question in [`evals/`](evals/). For one-line answers (e.g. *"how do I delete a remote git branch?"*) emoji-speak can actually use *more* tokens because the wrapping costs more than the saved word. For verbose answers it wins consistently.
+
+**How is this different from `"Answer concisely."`?**
+The benchmark compares both. Plain `"Answer concisely."` does shorten output, but emoji-speak shortens it further on long-form questions while staying readable as a *style*, not just a length cap.
+
+**Does it support Cursor / Windsurf / Gemini / Codex?**
+Not yet — Claude Code only for now. Multi-agent manifests are on the roadmap (same approach as [caveman](https://github.com/JuliusBrussee/caveman)).
 
 ---
 

@@ -10,7 +10,67 @@
 
 Code, paths, URLs, error messages, and version numbers stay verbatim. Everything else becomes emoji.
 
-> 💾 **Sample:** for the question *"what's the difference between `let` and `const`?"*, emoji-speak's reply was **128 output tokens vs. 192 from unprompted Claude — a 33% saving**. Real per-question deltas vary wildly (some questions get longer; trivially-short ones can balloon). [See the methodology and run it yourself.](#-numbers)
+## 🔀 Before / After
+
+<table>
+<tr>
+<td width="50%">
+
+#### 🗣️ Normal Claude · `115 tokens`
+
+> In JavaScript, the main difference between `let` and `const` is reassignment. Variables declared with `let` can be reassigned later in the same scope, while variables declared with `const` cannot be reassigned after their initial value is set. Both are block-scoped (only visible within the nearest enclosing `{ }`), unlike `var` which is function-scoped. Note that `const` only prevents reassignment of the binding itself — if the value is an object or array, you can still mutate its contents. Use `const` by default for safety, and reach for `let` only when you genuinely need to reassign.
+
+</td>
+<td width="50%">
+
+#### 🎭 emoji-speak · `71 tokens` *(−38%)*
+
+> ≡ `const` ≠ `let`:
+> - `let`: ✏️ reassign ✅
+> - `const`: ✏️ reassign ❌ (binding) — 🧭 mutate object/array ✅
+> - both: block-scoped (`{ }`)
+>
+> ✅ `const` 1️⃣, `let` only when needed.
+
+</td>
+</tr>
+<tr>
+<td>
+
+#### 🗣️ Normal Claude · `110 tokens`
+
+> Your React component is re-rendering on every scroll event because the scroll handler is calling `setState` (or something that updates state) on each event. When state updates, React schedules a re-render. The fix is to either throttle/debounce the scroll handler so it fires less often, or move the scroll-tracked value out of state when you don't actually need to render with it. Wrap the handler in `useCallback` so its identity is stable, and consider passing the value via a ref instead of state if it's only used for layout calculations.
+
+</td>
+<td>
+
+#### 🎭 emoji-speak · `47 tokens` *(−57%)*
+
+> 🤔 scroll handler → setState every event → 🔁 rerender storm.
+>
+> 🔧 `useCallback` + `throttle(16ms)`, or 📐 layout-only value via `useRef` (❌ state).
+
+</td>
+</tr>
+<tr>
+<td>
+
+#### 🗣️ Normal Claude · `49 tokens`
+
+> Yes — but make sure all tests pass first, then push to main. The CI pipeline should pick up the commit and trigger the deploy. Watch the CI dashboard while it runs. If anything fails, roll back via `git revert` and redeploy.
+
+</td>
+<td>
+
+#### 🎭 emoji-speak · `18 tokens` *(−63%)*
+
+> 🧪 ✅ ? → 🚀 `git push origin main` → 🏁
+
+</td>
+</tr>
+</table>
+
+**Same answer. Fewer tokens. Brain still big.** Token counts from `tiktoken o200k_base`. Pairs are illustrative — your real savings depend on the question shape (verbose explanations compress well, one-line answers can get longer). [Run the benchmark](#-numbers) on your own questions.
 
 ---
 

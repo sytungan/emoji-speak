@@ -28,7 +28,21 @@ Claude Code namespaces plugin commands as `/<plugin>:<command>`:
 - `/emoji-speak:emoji on` — activate for this session and persist as the default
 - `/emoji-speak:emoji off` — deactivate
 
-You can also say `"stop emoji"` or `"normal mode"` in any message.
+## Natural-language toggling
+
+You don't have to type the slash command. Any of these phrases (in any
+casing, anywhere in your message) flips the mode:
+
+| Goal | Example phrases |
+|------|-----------------|
+| Activate | `"emoji on"`, `"use emoji"`, `"emoji mode"`, `"activate emoji"`, `"start emoji"` |
+| Deactivate | `"stop emoji"`, `"emoji off"`, `"normal mode"`, `"disable emoji"` |
+
+If both an on-phrase and an off-phrase appear in the same message,
+deactivation wins (you were probably trying to exit).
+
+Either path persists into the next session via the same XDG config file
+the slash command writes.
 
 ## How it works
 

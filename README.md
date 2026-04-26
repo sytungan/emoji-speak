@@ -16,8 +16,10 @@ Code, paths, URLs, error messages, and version numbers stay verbatim. Everything
 
 ## ⚡ Install (30 seconds)
 
-```bash
-/plugin marketplace add <path-to-this-repo>
+In a Claude Code session:
+
+```
+/plugin marketplace add sytungan/emoji-speak
 /plugin install emoji-speak@emoji-speak
 /reload-plugins
 ```

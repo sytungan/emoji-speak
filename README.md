@@ -210,6 +210,14 @@ node --test tests/*.mjs    # run all 25 tests
 
 ---
 
+## ⭐ Star This Repo
+
+If emoji-speak makes you smile (or saves you tokens), drop a star. Helps other people find it. 🎭
+
+[![Star History Chart](https://api.star-history.com/svg?repos=sytungan/emoji-speak&type=Date)](https://star-history.com/#sytungan/emoji-speak&Date)
+
+---
+
 ## 📜 Credits
 
 - Inspired by [caveman](https://github.com/JuliusBrussee/caveman) — same plugin scaffolding, opposite vibe.

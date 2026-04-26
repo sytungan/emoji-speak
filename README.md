@@ -76,6 +76,34 @@ Emoji mode automatically suspends for:
 
 Normal English resumes for the risky part, then emoji mode picks up again.
 
+## Measured
+
+<!-- After running `python evals/llm_run.py && python evals/measure.py`, paste the contents of `evals/snapshots/benchmark.md` here, replacing this comment block. -->
+
+A benchmark harness lives in [`evals/`](evals/). It runs each of 10 dev
+questions through three system-prompt conditions and counts output tokens
+with `tiktoken o200k_base`:
+
+| Arm | System prompt |
+|-----|--------------|
+| `baseline` | none |
+| `terse` | `Answer concisely.` |
+| `emoji_speak` | `Answer concisely.` + the SKILL body |
+
+Two deltas get reported, both honest:
+
+- `emoji_speak` vs `baseline` (the realistic comparison — most casual users
+  run Claude with no system prompt) — **headline number**.
+- `emoji_speak` vs `terse` (apples-to-apples, both told to be concise) —
+  isolates the emoji style itself.
+
+Run `python evals/llm_run.py && python evals/measure.py` to populate this
+section with real numbers from your own machine. The `emoji_speak vs
+baseline` delta is typically negative (saves tokens) because plain Claude
+defaults to verbose explanation; the `emoji_speak vs terse` delta is
+typically positive (each emoji costs 2–4 tokens vs 1 for short English
+words).
+
 ## Development
 
 Tests use the built-in `node:test` runner. From the plugin root:

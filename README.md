@@ -1,6 +1,6 @@
-# emoji-speak
+# 🎭 emoji-speak
 
-**A stylized communication mode for Claude Code. Replies in 100% emoji. Fun-first, and in some cases fewer tokens.**
+> Talk to Claude in **100% emoji**. Fun first.
 
 ```
 > Why does my useEffect run twice?
@@ -8,133 +8,106 @@
 ✅ prod: 1️⃣. ❌ not-bug.
 ```
 
-## Quick start
+Code, paths, URLs, error messages, and version numbers stay verbatim. Everything else becomes emoji.
 
-From inside a Claude Code session:
+---
 
-```
+## ⚡ Install (30 seconds)
+
+```bash
 /plugin marketplace add <path-to-this-repo>
 /plugin install emoji-speak@emoji-speak
 /reload-plugins
-/emoji-speak:emoji on
 ```
 
-Ask Claude anything. Replies come back in emoji.
+---
 
-## Commands
+## 🎮 Use it
 
-Claude Code namespaces plugin commands as `/<plugin>:<command>`:
+| To do this | Type this |
+|---|---|
+| **Turn on** | `/emoji-speak:emoji on` &nbsp;or&nbsp; `"emoji on"` &nbsp;or&nbsp; `"use emoji"` |
+| **Turn off** | `/emoji-speak:emoji off` &nbsp;or&nbsp; `"stop emoji"` &nbsp;or&nbsp; `"normal mode"` |
 
-- `/emoji-speak:emoji on` — activate for this session and persist as the default
-- `/emoji-speak:emoji off` — deactivate
+Your choice persists to the next session.
 
-## Natural-language toggling
+---
 
-You don't have to type the slash command. Any of these phrases (in any
-casing, anywhere in your message) flips the mode:
+## 🌟 More demos
 
-| Goal | Example phrases |
-|------|-----------------|
-| Activate | `"emoji on"`, `"use emoji"`, `"emoji mode"`, `"activate emoji"`, `"start emoji"` |
-| Deactivate | `"stop emoji"`, `"emoji off"`, `"normal mode"`, `"disable emoji"` |
+**`What does git rebase --onto do?`**
 
-If both an on-phrase and an off-phrase appear in the same message,
-deactivation wins (you were probably trying to exit).
+> 🌿 A → 🌿 B (base ⬅️) → 🌿 C ⤴️ → ✏️ replay commits onto 🌿 C.
+> 🎯 surgical reparent.
 
-Either path persists into the next session via the same XDG config file
-the slash command writes.
+**`Deploy to prod?`**
 
-## How it works
+> 🧪 ✅ ? → 🚀 `git push origin main` → 🏁
 
-A SessionStart hook reads your config and, if the mode is `on`, emits the
-SKILL rules as hidden context for every session. That re-anchors the
-behavior across long conversations and context compaction so emoji-speak
-doesn't drift back to English on its own.
+**`drop the users table`** *(safety auto-engages)*
 
-**Config priority:**
+> ⚠️ **Warning:** this permanently deletes everything in the `users` table and cannot be undone. Verify you have a backup first.
+>
+> ```sql
+> DROP TABLE users;
+> ```
+>
+> 🎭 resume. 💾 ✅?
 
-1. `EMOJI_SPEAK_DEFAULT=on|off` environment variable
-2. `$XDG_CONFIG_HOME/emoji-speak/config.json` if `XDG_CONFIG_HOME` is set
-3. `~/.config/emoji-speak/config.json` (macOS / Linux)
-4. `%APPDATA%\emoji-speak\config.json` (Windows)
-5. default: `off`
+---
 
-## What's preserved verbatim
+## 🛡️ When emoji *steps aside*
 
-Code blocks, inline code, file paths, URLs, shell commands, error messages,
-proper nouns, library names, and version numbers are never emoji-fied. Only
-prose becomes emoji. Structure (headings, lists, tables) is preserved too.
+Plain English takes over for:
 
-## Safety
+- 🚨 security warnings
+- 🗑️ destructive / irreversible actions
+- 1️⃣2️⃣3️⃣ multi-step procedures where wrong order = harm
+- ❓ when you say *"wait, what?"* and need a clear answer
 
-Emoji mode automatically suspends for:
+Once the dangerous part is over, emoji mode resumes automatically.
 
-- security warnings
-- destructive or irreversible actions (e.g. `DROP TABLE`, `rm -rf`, force-push)
-- multi-step procedures where fragment order could cause harm
-- explicit "please clarify" / repeated questions
+---
 
-Normal English resumes for the risky part, then emoji mode picks up again.
+## 📊 Numbers
 
-## Measured
-
-<!-- After running `python evals/llm_run.py && python evals/measure.py`, paste the contents of `evals/snapshots/benchmark.md` here, replacing this comment block. -->
-
-A benchmark harness lives in [`evals/`](evals/). It runs each of 10 dev
-questions through three system-prompt conditions and counts output tokens
-with `tiktoken o200k_base`:
-
-| Arm | System prompt |
-|-----|--------------|
-| `baseline` | none |
-| `terse` | `Answer concisely.` |
-| `emoji_speak` | `Answer concisely.` + the SKILL body |
-
-Two deltas get reported, both honest:
-
-- `emoji_speak` vs `baseline` (the realistic comparison — most casual users
-  run Claude with no system prompt) — **headline number**.
-- `emoji_speak` vs `terse` (apples-to-apples, both told to be concise) —
-  isolates the emoji style itself.
-
-Run `python evals/llm_run.py && python evals/measure.py` to populate this
-section with real numbers from your own machine. The `emoji_speak vs
-baseline` delta is typically negative (saves tokens) because plain Claude
-defaults to verbose explanation; the `emoji_speak vs terse` delta is
-typically positive (each emoji costs 2–4 tokens vs 1 for short English
-words).
-
-## Development
-
-Tests use the built-in `node:test` runner. From the plugin root:
+A benchmark harness lives in [`evals/`](evals/). Run it to see real token counts on your own machine:
 
 ```bash
-node --test tests/*.mjs
+cd evals && python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python llm_run.py && python measure.py
 ```
 
-(On Node 24+, pass the glob explicitly — `node --test tests/` doesn't recurse
-into a directory in that version.)
+The script reports `emoji_speak` vs `baseline` (no system prompt — what most casual users have) and `emoji_speak` vs `terse` (apples-to-apples). Both numbers, no spin.
 
-## Roadmap
+---
 
-**Phase 1 (this release):**
-- Core SKILL with the canonical emoji cheatsheet
-- SessionStart hook + config resolver
-- `/emoji on|off` slash command
+## 🗺️ Roadmap
 
-**Future phases:**
-- `UserPromptSubmit` tracker (instant toggle from natural-language messages)
-- Statusline indicator
-- `/emoji-commit` and `/emoji-help` commands
-- `emoji-compress` companion CLI for converting `CLAUDE.md` files
-- Evals harness with real LLM token measurements
-- Multi-agent manifests (Cursor, Windsurf, Gemini, Codex, Cline, Copilot)
+| | |
+|---|---|
+| ✅ | Core SKILL + SessionStart hook |
+| ✅ | `/emoji-speak:emoji on\|off` |
+| ✅ | Natural-language toggling + per-turn drift protection |
+| ✅ | Benchmark harness |
+| 🚧 | `emoji-compress` — convert your `CLAUDE.md` to emoji |
+| 💭 | Statusline indicator |
+| 💭 | Multi-agent (Cursor, Windsurf, Gemini, Codex, Cline, Copilot) |
 
-## License
+---
 
-MIT. See [`LICENSE`](LICENSE).
+## 🧪 Develop
 
-## Inspired by
+```bash
+node --test tests/*.mjs    # run all 25 tests
+```
 
-[JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) — same
-plugin scaffolding, opposite vibe.
+(Node 24+ needs the explicit glob — `tests/` alone doesn't recurse.)
+
+---
+
+## 📜 Credits
+
+- Inspired by [caveman](https://github.com/JuliusBrussee/caveman) — same plugin scaffolding, opposite vibe.
+- MIT licensed. See [`LICENSE`](LICENSE).

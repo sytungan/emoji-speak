@@ -13,17 +13,20 @@
 From inside a Claude Code session:
 
 ```
-/plugin install <path-to-this-repo>
+/plugin marketplace add <path-to-this-repo>
+/plugin install emoji-speak@emoji-speak
 /reload-plugins
-/emoji on
+/emoji-speak:emoji on
 ```
 
 Ask Claude anything. Replies come back in emoji.
 
 ## Commands
 
-- `/emoji on` — activate for this session and persist as the default
-- `/emoji off` — deactivate
+Claude Code namespaces plugin commands as `/<plugin>:<command>`:
+
+- `/emoji-speak:emoji on` — activate for this session and persist as the default
+- `/emoji-speak:emoji off` — deactivate
 
 You can also say `"stop emoji"` or `"normal mode"` in any message.
 
